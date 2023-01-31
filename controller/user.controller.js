@@ -73,4 +73,6 @@ deleteFriend(req,res){
           : res.json(userData))
       .catch((err)=>res.status(500).json(err))
 }
-}
+};
+
+module.exports = userController;
