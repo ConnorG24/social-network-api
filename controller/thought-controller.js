@@ -44,4 +44,20 @@ thoughtUpdate(req,res){
     .catch((err)=>res.status(500).json(err))
 },
 //delete
+thoughtDelete(req,res){
+    Thought.findOneAndDelete({ _id: req.params.id })
+    .then((thoughtData)=>{
+        if(!thoughtData){
+            res.status(404).json({message:'No thought under this id'})
+        }
+        return User.findOneAndUpdate(
+            { _id: req.params.id },
+            { $pull: {thoughts:thoughtData._id} },
+            { runValidators: true, new: true }
+        )
+    }
+        
+    )
+    .catch((err)=>res.status(500).json(err))
+},
 }
