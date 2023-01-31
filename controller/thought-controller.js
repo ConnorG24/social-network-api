@@ -8,7 +8,7 @@ thoughtGetAll(req,res){
     .catch((err)=>res.status(500).json(err))
 }, 
 //get one by id
-userGetOne(req,res){
+thoughtGetOne(req,res){
     Thought.findone({_id: req.params.id})
     .select('-__v')
     .then((thoughtData)=>
