@@ -39,4 +39,13 @@ userUpdate(req,res){
     .catch((err)=>res.status(500).json(err))
 },
 //delete
+userDelete(req,res){
+    User.findOneAndDelete({ _id: req.params.id })
+    .then((userData)=>
+    !userData
+        ? res.status(404).json({message:'No user under this id'})
+        : User.deleteMany({_id:{$in: userData.thoughts}})
+    )
+    .catch((err)=>res.status(500).json(err))
+},
 }
