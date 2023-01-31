@@ -13,10 +13,30 @@ userGetOne(req,res){
     User.findone({_id: req.params.id})
     .select('-__v')
     .then((userData)=>
+    !userData
+        ? res.status(404).json({message:'No user under this id'})
+        : res.json(userData))
+        .catch((err)=>res.status(500).json(err))
+},
+//create
+userCreate(req,res){
+    User.create(req.body)
+    .then((userData)=>
     res.json(userData))
     .catch((err)=>res.status(500).json(err))
 },
-//create
 //update
+userUpdate(req,res){
+    User.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: req.body },
+      { runValidators: true, new: true }
+    )
+    .then((userData)=>
+    !userData
+        ? res.status(404).json({message:'No user under this id'})
+        : res.json(userData))
+    .catch((err)=>res.status(500).json(err))
+},
 //delete
 }
