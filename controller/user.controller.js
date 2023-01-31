@@ -48,4 +48,29 @@ userDelete(req,res){
     )
     .catch((err)=>res.status(500).json(err))
 },
+addFriend(req,res){
+    User.findOneAndUpdate(
+        { _id: req.params.id },
+        { $addToSet:{friends: req.params.friendsId}},
+        { runValidators: true, new: true }
+      )
+      .then((userData)=>
+      !userData
+          ? res.status(404).json({message:'No user under this id'})
+          : res.json(userData))
+      .catch((err)=>res.status(500).json(err))
+},
+
+deleteFriend(req,res){
+    User.findOneAndUpdate(
+        { _id: req.params.id },
+        { $pull:{friends:req.params.friendsId}},
+        { runValidators: true, new: true }
+      )
+      .then((userData)=>
+      !userData
+          ? res.status(404).json({message:'No user under this id'})
+          : res.json(userData))
+      .catch((err)=>res.status(500).json(err))
+}
 }
