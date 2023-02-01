@@ -10,7 +10,7 @@ userGetAll(req,res){
     
 //get one by id
 userGetOne(req,res){
-    User.findone({_id: req.params.id})
+    User.findOne({_id: req.params.id})
     .select('-__v')
     .then((userData)=>
     !userData

@@ -9,7 +9,7 @@ thoughtGetAll(req,res){
 }, 
 //get one by id
 thoughtGetOne(req,res){
-    Thought.findone({_id: req.params.id})
+    Thought.findOne({_id: req.params.id})
     .select('-__v')
     .then((thoughtData)=>
     !thoughtData
